@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html lang="en">
+    <head>
+        <title>Bootstrap Example</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet"
+              href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script
+        src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script
+        src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <script src="https://login2explore.com/jpdb/resources/js/0.0.3/jpdb-commons.js"></script>
+    </head>
+    <body>
+        <div class="container">
+        
+          
+            <form id="searchForm" method="post">
+                <h2>Get existing users List</h2>
+                <div class="form-group"><input type="number" class="form-control" name="searchEmployee" id="searchEmployee"
+                                               placeholder="Search user by name" required>
+                </div>
+                <div class="form-group">
+                    <input type="button" class="btn btn-primary" id="getEmpButton" value="Search"
+                           onclick="getUserData();">
+                </div>
+                <br><br>
+            </form>
+
+        </div>
+        <script>
+            const token = "90937482|-31949291187422004|90942758";
+            var baseUrl = "http://api.login2explore.com:5577";
+            var endPointUrl = "/api/irl";
+//                code for getting user info from the database
+
+          
+
+          
+            function getUserData() {
+//                    Validating form
+                if ($("#searchEmployee").val() === "") {
+                    return (alert("Please enter the Record of the employee"));
+                }
+
+                var reqId = $("#searchEmployee").val();
+                var searchStr = createGET_BY_RECORDRequest(token, "Employee", "index", reqId, true, true);
+                jQuery.ajaxSetup({async: false});
+                var resultObj = executeCommandAtGivenBaseUrl(searchStr, baseUrl, endPointUrl);
+                jQuery.ajaxSetup({async: true});
+                var data=JSON.stringify(resultObj);
+                alert(data)
+            }
+
+        </script>
+
+    </body>
+</html>
